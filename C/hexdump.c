@@ -1,5 +1,5 @@
 /**
- * xrdp: A Remote Desktop Protocol server.
+ * hexdump: an optimized hexdump program
  *
  * Copyright (C) Laxmikant Rashinkar 2013 LK.Rashinkar@gmail.com
  *
