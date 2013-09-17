@@ -44,11 +44,13 @@ while(0)
 #ifdef LOCAL_DEBUG
 #define log_info(_fmt, ...)                                           \
 do                                                                    \
+{                                                                     \
     if (LOG_INFO <= LOG_LEVEL)                                        \
     {                                                                 \
         printf("%s %s: %s: %d: INFO:  " _fmt, MODULE_NAME,  __FILE__, \
                __func__, __LINE__, ## __VA_ARGS__);                   \
     }                                                                 \
+}                                                                     \
 while(0)
 #else
 #define log_info(_fmt, ...)
@@ -57,11 +59,13 @@ while(0)
 #ifdef LOCAL_DEBUG
 #define log_debug_low(_fmt, ...)                                      \
 do                                                                    \
+{                                                                     \
     if (LOG_DEBUG_LOW <= LOG_LEVEL)                                   \
     {                                                                 \
         printf("%s %s: %s: %d: DEBUG: " _fmt, MODULE_NAME,  __FILE__, \
                __func__, __LINE__, ## __VA_ARGS__);                   \
     }                                                                 \
+}                                                                     \
 while(0)
 #else
 #define log_debug_low(_fmt, ...)
@@ -70,11 +74,13 @@ while(0)
 #ifdef LOCAL_DEBUG
 #define log_debug_high(_fmt, ...)                                     \
 do                                                                    \
+{                                                                     \
     if (LOG_DEBUG_HIGH <= LOG_LEVEL)                                  \
     {                                                                 \
         printf("%s %s: %s: %d: DEBUG: " _fmt, MODULE_NAME,  __FILE__, \
                __func__, __LINE__, ## __VA_ARGS__);                   \
     }                                                                 \
+}                                                                     \
 while(0)
 #else
 #define log_debug_high(_fmt, ...)
