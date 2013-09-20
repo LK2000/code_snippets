@@ -222,3 +222,34 @@ fifo_remove(FIFO* fp)
 
     return (void *) data;
 }
+
+/**
+ * Return item from head, but do not remove it
+ *
+ * @param  fp     FIFO
+ *
+ * @param data on success, NULL on error
+ *****************************************************************************/
+void*
+fifo_peek(FIFO* fp)
+{
+    long data;
+
+    log_debug_high("entered\n");
+
+    if (!fp)
+    {
+        log_debug_high("FIFO is null\n");
+        return 0;
+    }
+
+    if (fp->rd_ptr == fp->wr_ptr)
+    {
+        log_debug_high("FIFO is empty\n");
+        return 0;
+    }
+
+    log_debug_low("peeking data at index %d\n", fp->rd_ptr);
+
+    return (void *) fp->user_data[fp->rd_ptr];
+}
