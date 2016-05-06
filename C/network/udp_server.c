@@ -25,6 +25,8 @@
 #include <fcntl.h>
 #include <netdb.h>
 
+#include "network.h"
+
 /*
  * This app listens for UDP packets; as soon as the first one is received,
  * it replies to it and terminates
@@ -33,10 +35,6 @@
  *
  * usage: udp_broadcast_client [port]
  */
-
-void print_net_info();
-void get_ip_addr(char *buf, int len);
-void get_broadcast_addr(char *buf, int len);
 
 int main(int argc, char **argv)
 {

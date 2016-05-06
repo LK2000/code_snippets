@@ -24,10 +24,11 @@
 #include <fcntl.h>
 #include <netdb.h>
 #include <unistd.h>
-
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include <ifaddrs.h>
+
+#include "network.h"
 
 /*
  * This app broadcasts a UDP packet once a second on the first available
@@ -38,10 +39,6 @@
  *
  * usage: udp_broadcast_client [port]
  */
-
-void print_net_info();
-void get_ip_addr(char *buf, int len);
-void get_broadcast_addr(char *buf, int len);
 
 int main(int argc, char **argv)
 {

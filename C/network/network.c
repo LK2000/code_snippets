@@ -14,11 +14,7 @@
  * limitations under the License.
  */
 
-#include <stdio.h>
-#include <string.h>
-#include <arpa/inet.h>
-#include <sys/socket.h>
-#include <ifaddrs.h>
+#include "network.h"
 
 /**
  * @brief Print information about network interfaces
@@ -112,4 +108,43 @@ void get_broadcast_addr(char *buf, int len)
     }
 
     freeifaddrs(ifap);
+}
+
+/**
+ * @brief Connect to specified server on specified port
+ * @param skt      return socket descriptor here
+ * @param ip_addr  IP of server to connect to
+ * @param port     port on which to connect
+ * @return 0 on success, -1 on error
+ ****************************************************************************/
+int connect_to_server(int *skt, char *ip_addr, int port)
+{
+    struct sockaddr_in server_addr;
+    int flags;
+
+    *skt = socket(AF_INET, SOCK_STREAM, 0);
+    if (*skt < 0)
+        return -1;
+
+    memset((void *) &server_addr, 0, sizeof(server_addr));
+    server_addr.sin_family = AF_INET;
+    server_addr.sin_port = htons(port);
+    if (inet_pton(AF_INET, ip_addr, &server_addr.sin_addr) <= 0)
+    {
+        close(*skt);
+        *skt = -1;
+        return -1;
+    }
+
+    if (connect(*skt, (struct sockaddr *) &server_addr, sizeof(server_addr)) < 0)
+    {
+        close(*skt);
+        *skt = -1;
+        return -1;
+    }
+
+    flags = fcntl(*skt, F_GETFL, 0);
+    fcntl(*skt, F_SETFL, flags | O_NONBLOCK);
+
+    return 0;
 }
